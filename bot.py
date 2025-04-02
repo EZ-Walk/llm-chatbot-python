@@ -1,6 +1,9 @@
+from agent import generate_response
 import streamlit as st
 from utils import write_message
 from llm import llm, embeddings
+from graph import graph
+from agent import generate_response
 
 # Page Config
 st.set_page_config("Ebert", page_icon=":movie_camera:")
@@ -22,8 +25,8 @@ def handle_submit(message):
 
     # Handle the response
     with st.spinner('Thinking...'):
-        response = llm.invoke(message)
-        write_message('assistant', response.content)
+        response = generate_response(message)
+        write_message('assistant', response)
 
 
 # Display messages in Session State
