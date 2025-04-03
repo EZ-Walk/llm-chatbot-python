@@ -3,8 +3,10 @@ from graph import graph
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
 from langchain.schema import StrOutputParser
 from langchain.tools import Tool
+from tools import cypher
 from utils import get_session_id
 from tools.vector import get_movie_plot
+from tools.cypher import cypher_qa
 
 # Create a movie chat chain
 chat_prompt = ChatPromptTemplate.from_messages(
@@ -28,6 +30,11 @@ tools = [
         description="Get the plot of a movie",
         func=get_movie_plot,
     ),
+    Tool.from_function(
+        name="Movie information",
+        description="Provide information about movie questions using cypher",
+        func=cypher_qa
+    )
 ]
 
 # Create chat history callback
